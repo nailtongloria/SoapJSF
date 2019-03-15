@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="AtendePessoas" targetNamespace="http://webservice/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://webservice/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://webservice/" version="1.0" xmlns:tns="http://webservice/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="listarTodos" type="tns:listarTodos"/>
+<xs:element name="listarTodosResponse" type="tns:listarTodosResponse"/>
+<xs:element name="pesquisaPorNome" type="tns:pesquisaPorNome"/>
+<xs:element name="pesquisaPorNomeResponse" type="tns:pesquisaPorNomeResponse"/>
+<xs:complexType name="listarTodos">
+    <xs:sequence/>
+  </xs:complexType>
+<xs:complexType name="listarTodosResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:pessoa"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="pessoa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cidade" type="tns:cidade"/>
+      <xs:element minOccurs="0" name="data" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idade" type="xs:string"/>
+      <xs:element minOccurs="0" name="logradouro" type="tns:logradouro"/>
+      <xs:element minOccurs="0" name="nome" type="xs:string"/>
+      <xs:element minOccurs="0" name="ocupacao" type="xs:string"/>
+      <xs:element minOccurs="0" name="sexo" type="tns:sexoEnum"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="cidade">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="estado" type="tns:estado"/>
+      <xs:element minOccurs="0" name="ibge" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="nome" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="estado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="nome" type="xs:string"/>
+      <xs:element minOccurs="0" name="sigla" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="logradouro">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bairro" type="xs:string"/>
+      <xs:element minOccurs="0" name="cep" type="xs:string"/>
+      <xs:element minOccurs="0" name="cidade" type="tns:cidade"/>
+      <xs:element minOccurs="0" name="estado" type="tns:estado"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="logradouro" type="xs:string"/>
+      <xs:element minOccurs="0" name="uf" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="pesquisaPorNome">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nome" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="pesquisaPorNomeResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:pessoa"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:simpleType name="sexoEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Masculino"/>
+      <xs:enumeration value="Feminino"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="pesquisaPorNome">
+    <wsdl:part element="tns:pesquisaPorNome" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarTodosResponse">
+    <wsdl:part element="tns:listarTodosResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pesquisaPorNomeResponse">
+    <wsdl:part element="tns:pesquisaPorNomeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarTodos">
+    <wsdl:part element="tns:listarTodos" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AtendePessoaEJB">
+    <wsdl:operation name="listarTodos">
+      <wsdl:input message="tns:listarTodos" name="listarTodos">
+    </wsdl:input>
+      <wsdl:output message="tns:listarTodosResponse" name="listarTodosResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisaPorNome">
+      <wsdl:input message="tns:pesquisaPorNome" name="pesquisaPorNome">
+    </wsdl:input>
+      <wsdl:output message="tns:pesquisaPorNomeResponse" name="pesquisaPorNomeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AtendePessoasSoapBinding" type="tns:AtendePessoaEJB">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="listarTodos">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="listarTodos">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="listarTodosResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pesquisaPorNome">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="pesquisaPorNome">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pesquisaPorNomeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AtendePessoas">
+    <wsdl:port binding="tns:AtendePessoasSoapBinding" name="AtendePessoaEJBPort">
+      <soap:address location="http://localhost:8080/ProjetoFinalDad/AtendePessoas/AtendePessoaEJB"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
